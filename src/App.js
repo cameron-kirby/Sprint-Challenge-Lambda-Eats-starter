@@ -1,10 +1,43 @@
 import React, { useState, useEffect } from 'react'
 import { Route, Switch, Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 import Home from './components/Home'
 import Form from './components/Form'
 import formSchema from './validation/formSchema'
 import * as yup from 'yup'
+
+const StyledApp = styled.div`
+  header {
+    background-color: #ec3944;
+    color: white;
+    padding: 1%;
+    display: flex;
+    justify-content:space-between;
+    
+    nav {
+      width: 40%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      a{
+        color: white;
+        text-decoration: none;
+        font-weight: 900;
+        transition: 0.5s;
+
+        &:hover{
+          text-shadow: 0px 0px 4px #000000;
+        }
+      }
+    }
+  }
+
+  .container.content {
+    width: 80%;
+    margin: auto;
+  }
+`
 
 const initialFormValues = {
   size: '',
@@ -112,31 +145,35 @@ const App = () => {
   }, [formValues])
 
   return (
-    <div className='App'>
-      <h1>Lambda Eats</h1>
-      <div>
-        <Link to='/'>Home</Link>
-        <Link to='/pizza'>Order now!</Link>
-      </div>
-      <Switch>
+    <StyledApp>
+      <header>
+        <h1>Lambda Eats</h1>
+        <nav>
+          <Link to='/'>Home</Link>
+          <Link to='/pizza'>Order now!</Link>
+        </nav>
+      </header>
+      <div className="container content">
+        <Switch>
 
-        <Route path='/pizza'>
-          <Form
-            values={formValues}
-            onInputChange={onInputChange}
-            onSubmit={onSubmit}
-            disabled={disabled}
-            errors={formErrors}
-            onCheckboxChange={onCheckboxChange}
-          />
-        </Route>
+          <Route path='/pizza'>
+            <Form
+              values={formValues}
+              onInputChange={onInputChange}
+              onSubmit={onSubmit}
+              disabled={disabled}
+              errors={formErrors}
+              onCheckboxChange={onCheckboxChange}
+            />
+          </Route>
 
-        <Route path='/'>
-          <Home />
-        </Route>
+          <Route path='/'>
+            <Home />
+          </Route>
 
-      </Switch>       
-    </div>
+        </Switch>     
+      </div>  
+    </StyledApp>
   );
 };
 export default App;
