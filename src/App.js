@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { Route, Switch, Link } from 'react-router-dom'
 
+import Home from './components/Home'
 import Form from './components/Form'
 import formSchema from './validation/formSchema'
 import * as yup from 'yup'
@@ -27,8 +29,8 @@ const initialFormValues = {
 }
 
 const initialFormErrors = {
-  size: '',
-  sauce: '',
+  size: '* Required',
+  sauce: '* Required',
 }
 
 const App = () => {
@@ -102,7 +104,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    // 🔥 STEP 11- ADJUST THE STATUS OF `disabled` EVERY TIME `formValues` CHANGES
+    // Adjust value of disabled based on form updates
     formSchema.isValid(formValues)
       .then(valid => {
         setDisabled(!valid)
@@ -110,16 +112,31 @@ const App = () => {
   }, [formValues])
 
   return (
-    <>
+    <div className='App'>
       <h1>Lambda Eats</h1>
-      <Form
-        values={formValues}
-        onInputChange={onInputChange}
-        onSubmit={onSubmit}
-        disabled={disabled}
-        errors={formErrors}
-        onCheckboxChange={onCheckboxChange} />
-    </>
+      <div>
+        <Link to='/'>Home</Link>
+        <Link to='/pizza'>Order now!</Link>
+      </div>
+      <Switch>
+
+        <Route path='/pizza'>
+          <Form
+            values={formValues}
+            onInputChange={onInputChange}
+            onSubmit={onSubmit}
+            disabled={disabled}
+            errors={formErrors}
+            onCheckboxChange={onCheckboxChange}
+          />
+        </Route>
+
+        <Route path='/'>
+          <Home />
+        </Route>
+
+      </Switch>       
+    </div>
   );
 };
 export default App;

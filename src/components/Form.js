@@ -24,6 +24,7 @@ export default function Form(props){
                 <div className="form-group size">
                     {/* Add sizing validation */}
                     <h3>Choice of size</h3>
+                    <div className="validation">{errors.size}</div>
                     <label>Size:&nbsp;
                         <select
                             onChange={onInputChange}
@@ -40,6 +41,7 @@ export default function Form(props){
                 </div>
                 <div className="form-group sauce">
                     <h3>Choice of Sauce</h3>
+                    <div className="validation">{errors.sauce}</div>
                     <label>Original Red&nbsp;
                         <input
                             type='radio'
